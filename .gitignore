@@ -1,0 +1,18 @@
+# Backend
+server/target/
+server/*.log
+
+# Frontend
+client/node_modules/
+client/dist/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# Env files
+**/application.properties
+**/.env
