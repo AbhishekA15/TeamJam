@@ -6,6 +6,7 @@ import com.teamJam.server.entity.User;
 import com.teamJam.server.repository.MessageRepository;
 import com.teamJam.server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +17,13 @@ public class MessageService {
     private final UserRepository userRepository;
 
     public Message sendMessage(MessageDTO dto) {
-        User sender = userRepository.findById(dto.getSenderId())
+
+        String username = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+
+        User sender = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Sender not found"));
 
         User receiver = userRepository.findById(dto.getReceiverId())
