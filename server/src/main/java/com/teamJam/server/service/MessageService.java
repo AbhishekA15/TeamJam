@@ -37,4 +37,21 @@ public class MessageService {
 
         return messageRepository.save(message);
     }
+
+    public Message sendMessageFromUsername(String username, MessageDTO chatMessage) {
+
+        User sender = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        User receiver = userRepository.findById(chatMessage.getReceiverId())
+                .orElseThrow(() -> new RuntimeException("Receiver not found"));
+
+        Message message = Message.builder()
+                .content(chatMessage.getContent())
+                .sender(sender)
+                .receiver(receiver)
+                .build();
+
+        return messageRepository.save(message);
+    }
 }
