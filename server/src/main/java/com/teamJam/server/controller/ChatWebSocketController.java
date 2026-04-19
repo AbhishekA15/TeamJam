@@ -1,6 +1,5 @@
 package com.teamJam.server.controller;
 
-import com.teamJam.server.dto.ChatMessage;
 import com.teamJam.server.dto.MessageDTO;
 import com.teamJam.server.entity.Message;
 import com.teamJam.server.service.MessageService;
@@ -19,9 +18,9 @@ public class ChatWebSocketController {
     private final MessageService messageService;
 
     @MessageMapping("/chat")
-    public void sendMessage(ChatMessage chatMessage, Principal principal) {
+    public void sendMessage(MessageDTO chatMessage, Principal principal) {
 
-        String username = principal.getName(); // 🔥 from JWT
+        String username = principal.getName();
 
         Message savedMessage = messageService.sendMessageFromUsername(
                 username,
@@ -34,7 +33,7 @@ public class ChatWebSocketController {
         );
     }
 
-    private MessageDTO convertToDTO(ChatMessage chatMessage) {
+    private MessageDTO convertToDTO(MessageDTO chatMessage) {
         MessageDTO dto = new MessageDTO();
         dto.setReceiverId(chatMessage.getReceiverId());
         dto.setContent(chatMessage.getContent());

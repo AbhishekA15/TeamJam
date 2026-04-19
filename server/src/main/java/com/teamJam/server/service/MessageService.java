@@ -1,6 +1,5 @@
 package com.teamJam.server.service;
 
-import com.teamJam.server.dto.ChatMessage;
 import com.teamJam.server.dto.MessageDTO;
 import com.teamJam.server.entity.Message;
 import com.teamJam.server.entity.User;
@@ -39,7 +38,7 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public Message sendMessageFromUsername(String username, ChatMessage chatMessage) {
+    public Message sendMessageFromUsername(String username, MessageDTO chatMessage) {
 
         User sender = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
